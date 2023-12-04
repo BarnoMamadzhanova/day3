@@ -1,0 +1,77 @@
+
+body{
+    background-color: #EEE5E9;
+}
+
+.content{
+    margin-top: 70px;
+    /* background-color: cornsilk; */
+}
+
+.header{
+    color: #2B303A;
+}
+
+.links{
+    text-decoration: none;
+    color: #2B303A;
+}
+
+.links:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.myBtn{
+    width: 70px;
+}
+
+.linkSecondary{
+    text-decoration: none;
+    color: white;
+}
+
+.btnCreate{
+    width: 100px;
+    background-color: #92DCE5;
+    border: none;
+    height: 40px;
+    border-radius: 10px;
+    color: #2B303A;
+}
+
+.btnCreate:hover{
+    background-color: rgb(2, 221, 221);
+}
+
+.myCard{
+    color: #2B303A;
+}
+
+.cardHeader{
+    background-color: #D64933;
+    color: #EEE5E9;
+    font-size: large;
+}
+
+.btnDelete{
+    background-color: #D64933;
+    color: #EEE5E9;
+}
+
+.btnDelete:hover{
+    background-color: #f2725e;
+}
+
+.myNav{
+    background-color: #7C7C7C;
+}
+
+.navLinks{
+    color: #EEE5E9;
+}
+
+.navLinks:hover{
+    color: #0A014F;
+
+}

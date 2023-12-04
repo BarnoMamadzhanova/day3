@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Todo{% endblock %}
+{% block title %}Edit Task{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('style/style.css')}}">
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Todo</h1>
+<div class="container my-5">
+    <div class="content">
+        <h3 class="my-4 header">Edit Todo</h3>
 
-    {{ include('todo/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('todo/_form.html.twig', {'button_label': 'Save changes'}) }}
+    
+        <button type="button" class="btn btn-secondary myBtn"><a href="{{ path('app_todo_index') }}" class="linkSecondary">Back</a></button>
+    
+        {{ include('todo/_delete_form.html.twig') }}
+    </div>
+</div>
 
-    <a href="{{ path('app_todo_index') }}">back to list</a>
-
-    {{ include('todo/_delete_form.html.twig') }}
 {% endblock %}

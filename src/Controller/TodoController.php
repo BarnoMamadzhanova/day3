@@ -30,8 +30,16 @@ class TodoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $now = new \DateTime('now');
+            $todo = $form->getData();
+            $todo->setCreateDate($now);
             $entityManager->persist($todo);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Task Added'
+                );
 
             return $this->redirectToRoute('app_todo_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -57,7 +65,14 @@ class TodoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $now = new \DateTime('now');
+            $todo = $form->getData();
+            $todo->setCreateDate($now);
             $entityManager->flush();
+            $this->addFlash(
+                'notice',
+                'Task Edited'
+                );
 
             return $this->redirectToRoute('app_todo_index', [], Response::HTTP_SEE_OTHER);
         }

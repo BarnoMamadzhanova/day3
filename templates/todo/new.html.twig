@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Todo{% endblock %}
+{% block title %}New Tasks{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('style/style.css')}}">
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Todo</h1>
+<div class="container my-5">
+    <div class="content">
+        <h3 class="my-4 header">Create new task</h3>
 
-    {{ include('todo/_form.html.twig') }}
+        {{ include('todo/_form.html.twig') }}
 
-    <a href="{{ path('app_todo_index') }}">back to list</a>
+        <button type="button" class="btn btn-secondary myBtn"><a href="{{ path('app_todo_index') }}" class="linkSecondary">Back</a></button>
+    </div>
+</div>
 {% endblock %}

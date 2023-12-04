@@ -1,45 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Todo index{% endblock %}
+{% block title %}Home{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('style/style.css')}}">
+{% endblock %}
 
 {% block body %}
-    <h1>Todo index</h1>
+<div class="container my-5">
+    <div class="content">
+        <h3 class="my-4 header">Tasks</h3>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Priority</th>
-                <th>Due_date</th>
-                <th>Create_date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for todo in todos %}
-            <tr>
-                <td>{{ todo.id }}</td>
-                <td>{{ todo.name }}</td>
-                <td>{{ todo.category }}</td>
-                <td>{{ todo.description }}</td>
-                <td>{{ todo.priority }}</td>
-                <td>{{ todo.dueDate ? todo.dueDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ todo.createDate ? todo.createDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_todo_show', {'id': todo.id}) }}">show</a>
-                    <a href="{{ path('app_todo_edit', {'id': todo.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Due_date</th>
+                    <th>Create_date</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for todo in todos %}
+                <tr>
+                    <td>{{ todo.id }}</td>
+                    <td>{{ todo.name }}</td>
+                    <td>{{ todo.category }}</td>
+                    <td>{{ todo.description }}</td>
+                    <td>{{ todo.priority }}</td>
+                    <td>{{ todo.dueDate ? todo.dueDate|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ todo.createDate ? todo.createDate|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-info myBtn"><a href="{{ path('app_todo_show', {'id': todo.id}) }}" class="links">show</a></button>
+                        <button type="button" class="btn btn-outline-warning myBtn"><a href="{{ path('app_todo_edit', {'id': todo.id}) }}" class="links">edit</a></button>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    
+        <button type="button" class="btn btn-outline-primary mb-4"><a href="{{ path('app_todo_new') }}" class="links">Create new</a></button>
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
+</div>
 
-    <a href="{{ path('app_todo_new') }}">Create new</a>
 {% endblock %}
