@@ -12,6 +12,7 @@
 
         <div class="card mb-3 myCard">
             <div class="card-header cardHeader">Task {{ todo.id }}</div>
+            <img src="{{ asset('images/'~ todo.image)}}" class="card-img-top cardImg" alt="{{ todo.name }}">
             <div class="card-body">
               <h5 class="card-title">Name: {{ todo.name }}</h5>
               <p class="card-text fst-italic">Description: {{ todo.description }}</p>
@@ -19,6 +20,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Category: {{ todo.category }}</li>
                 <li class="list-group-item">Priority: {{ todo.priority }}</li>
+                <li class="list-group-item">Status: {{status.name}}</li>
                 <li class="list-group-item">Create date: {{ todo.createDate ? todo.createDate|date('Y-m-d H:i:s') : '' }}</li>
                 <li class="list-group-item">Due date: {{ todo.dueDate ? todo.dueDate|date('Y-m-d H:i:s') : '' }}</li>
             </ul>

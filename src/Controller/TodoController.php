@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Todo;
+use App\Entity\Status;
 use App\Form\TodoType;
 use App\Repository\TodoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,26 +11,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\FileUploader;
 
 #[Route('/todo')]
 class TodoController extends AbstractController
 {
     #[Route('/', name: 'app_todo_index', methods: ['GET'])]
     public function index(TodoRepository $todoRepository): Response
-    {
+    {   
+        $status = new Status();
         return $this->render('todo/index.html.twig', [
             'todos' => $todoRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'app_todo_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $todo = new Todo();
         $form = $this->createForm(TodoType::class, $todo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $imageName = $fileUploader->upload($image);
+                $todo->setImage($imageName);
+            }
             $now = new \DateTime('now');
             $todo = $form->getData();
             $todo->setCreateDate($now);
@@ -55,16 +63,22 @@ class TodoController extends AbstractController
     {
         return $this->render('todo/show.html.twig', [
             'todo' => $todo,
+            'status' => $todo->getFKStatus()
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_todo_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Todo $todo, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Todo $todo, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(TodoType::class, $todo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $imageName = $fileUploader->upload($image);
+                $todo->setImage($imageName);
+            }
             $now = new \DateTime('now');
             $todo = $form->getData();
             $todo->setCreateDate($now);

@@ -46,6 +46,12 @@ body{
 
 .myCard{
     color: #2B303A;
+    width: 600px;
+}
+
+.cardImg{
+    width: 100%;
+    /* height: 600px; */
 }
 
 .cardHeader{
